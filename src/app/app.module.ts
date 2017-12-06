@@ -8,14 +8,21 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+import { AppRoutingModule } from './app-routing.module';
+import { QuestionsComponent } from './questions/questions.component';
+import { QuestionComponent } from './question/question.component';
+import { EditQuestionComponent } from './edit-question/edit-question.component';
+import { NewQuestionComponent } from './new-question/new-question.component';
+
 @NgModule({
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AppRoutingModule
   ],
-  declarations: [AppComponent],
+  declarations: [AppComponent, QuestionsComponent, QuestionComponent, EditQuestionComponent, NewQuestionComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
