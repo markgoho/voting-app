@@ -1,3 +1,8 @@
-<p>
-  new-question works!
-</p>
+<h2>Create a new question</h2>
+<label>Question:</label>
+<input [(ngModel)]="newQuestion"
+       type="text"
+       name=""
+       id="">
+<button type="button"
+        (click)="onCreate()">Create</button>

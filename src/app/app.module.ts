@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 
 import { environment } from '../environments/environment';
 
@@ -20,9 +21,16 @@ import { NewQuestionComponent } from './new-question/new-question.component';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
-  declarations: [AppComponent, QuestionsComponent, QuestionComponent, EditQuestionComponent, NewQuestionComponent],
+  declarations: [
+    AppComponent,
+    QuestionsComponent,
+    QuestionComponent,
+    EditQuestionComponent,
+    NewQuestionComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

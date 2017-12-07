@@ -1,3 +1,15 @@
-<p>
-  question works!
-</p>
+<h2>Vote on the question below!</h2>
+<div *ngIf="question | async as q">
+  <div>{{q.question}}</div>
+
+  <div>
+    Yes: {{q.yesVotes}}
+    <button type="button"
+            (click)="voteYes()">Vote Yes</button>
+  </div>
+  <div>
+    No: {{q.noVotes }}
+    <button type="button"
+            (click)="voteNo()">Vote No</button>
+  </div>
+</div>
