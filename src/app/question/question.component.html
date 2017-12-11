@@ -1,9 +1,8 @@
 <h2>Vote on the question below!</h2>
 <div class="vote-container"
      *ngIf="question | async as q">
+
   <div class="question-title">{{q.title}}</div>
-
-
   <div class="current-votes">{{q.votes}}</div>
 
 
