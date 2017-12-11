@@ -1,6 +1,5 @@
 export interface Question {
-  question: string;
-  yesVotes: number;
-  noVotes: number;
+  title: string;
+  votes: number;
   id?: string;
 }

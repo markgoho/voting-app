@@ -1,8 +1,8 @@
 <h2>Choose a Question to Start Voting!</h2>
-<ul>
+<ul class="questions-container">
   <li *ngFor="let question of questions | async">
     <a [routerLink]="['/question', question.id]">
-      {{question.question}}
+      {{question.title}}
     </a>
   </li>
 </ul>

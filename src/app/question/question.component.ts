@@ -37,20 +37,11 @@ export class QuestionComponent implements OnInit {
       .doc(this.id);
   }
 
-  voteYes() {
+  vote(direction: string) {
     this.fb.firestore().runTransaction(transaction => {
       return transaction.get(this.questionRef).then(question => {
-        const newVotes = question.data().yesVotes + 1;
-        transaction.update(this.questionRef, { yesVotes: newVotes });
-      });
-    });
-  }
-
-  voteNo() {
-    this.fb.firestore().runTransaction(transaction => {
-      return transaction.get(this.questionRef).then(question => {
-        const newVotes = question.data().noVotes + 1;
-        transaction.update(this.questionRef, { noVotes: newVotes });
+        const newVotes = question.data().votes + (direction === 'yes' ? 1 : -1);
+        transaction.update(this.questionRef, { votes: newVotes });
       });
     });
   }

@@ -13,6 +13,7 @@ import { Question } from '../question.model';
 })
 export class NewQuestionComponent implements OnInit {
   newQuestion: string;
+  emptyQuestion: boolean;
   questionsCollection: AngularFirestoreCollection<Question>;
 
   constructor(private afs: AngularFirestore) {
@@ -22,11 +23,16 @@ export class NewQuestionComponent implements OnInit {
   ngOnInit() {}
 
   async onCreate() {
-    await this.questionsCollection.add({
-      question: this.newQuestion,
-      yesVotes: 0,
-      noVotes: 0
-    });
+    if (this.newQuestion) {
+      const title = this.newQuestion.trim();
+      await this.questionsCollection.add({
+        title: this.newQuestion,
+        votes: 0
+      });
+      this.emptyQuestion = false;
+    } else {
+      this.emptyQuestion = true;
+    }
 
     this.newQuestion = '';
   }
