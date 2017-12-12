@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FirebaseApp } from 'angularfire2';
 import {
   AngularFirestore,
@@ -20,12 +20,16 @@ export class QuestionComponent implements OnInit {
   questionDocument: AngularFirestoreDocument<Question>;
   question: Observable<Question>;
   id: string;
+  deleteConfirmation: boolean;
 
   constructor(
     private afs: AngularFirestore,
     private route: ActivatedRoute,
-    private fb: FirebaseApp
-  ) {}
+    private fb: FirebaseApp,
+    private router: Router
+  ) {
+    this.deleteConfirmation = false;
+  }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -44,5 +48,14 @@ export class QuestionComponent implements OnInit {
         transaction.update(this.questionRef, { votes: newVotes });
       });
     });
+  }
+
+  onShowDelete() {
+    this.deleteConfirmation = true;
+  }
+
+  onDelete() {
+    this.questionDocument.delete();
+    this.router.navigate(['questions']);
   }
 }

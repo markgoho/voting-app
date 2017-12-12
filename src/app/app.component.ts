@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   template: `
     <h1>Voting App</h1>
     <div class="router-outlet">
-    <router-outlet></router-outlet>
+      <router-outlet></router-outlet>
     </div>
     <app-nav></app-nav>
   `

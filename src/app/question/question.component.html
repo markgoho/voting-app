@@ -5,14 +5,24 @@
   <div class="question-title">{{q.title}}</div>
   <div class="current-votes">{{q.votes}}</div>
 
+  <div class="voting-buttons">
+    <button type="button"
+            class="yes-button"
+            (click)="vote('yes')">Vote Yes</button>
+
+
+    <button type="button"
+            class="no-button"
+            (click)="vote('no')">Vote No</button>
+  </div>
 
   <button type="button"
-          class="yes-button"
-          (click)="vote('yes')">Vote Yes</button>
-
+          class="delete-button"
+          *ngIf="!deleteConfirmation"
+          (click)="onShowDelete()">Delete Question</button>
 
   <button type="button"
-          class="no-button"
-          (click)="vote('no')">Vote No</button>
-
+          class="delete-confirmation"
+          *ngIf="deleteConfirmation"
+          (click)="onDelete()">Do you really want to delete this question?</button>
 </div>

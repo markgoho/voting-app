@@ -11,22 +11,33 @@
 }
 
 .question-title {
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .current-votes {
   font-size: 10rem;
+  grid-column: 2/3;
 }
 
-.yes-button {
-  grid-column-start: 2;
-}
-
-.no-button {
+.voting-buttons {
+  display: flex;
+  flex-direction: column;
   grid-column-start: 3;
+  justify-content: center;
+  align-items: center;
 }
 
-button {
-  width: 75%;
-  justify-self: center;
+.voting-buttons button {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+}
+
+.delete-button,
+.delete-confirmation {
+  grid-column: 2 / 4;
+}
+
+.delete-confirmation {
+  margin-top: 2rem;
 }
