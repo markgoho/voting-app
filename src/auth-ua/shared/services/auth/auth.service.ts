@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 
-import { Store } from '../../../../store';
-
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 
@@ -25,10 +23,9 @@ export class AuthService {
       uid: next.uid,
       authenticated: true
     };
-    this.store.set('user', user);
   });
 
-  constructor(private af: AngularFireAuth, private store: Store) {}
+  constructor(private af: AngularFireAuth) {}
 
   get user(): firebase.User {
     return this.af.auth.currentUser;
@@ -38,7 +35,7 @@ export class AuthService {
     return this.af.authState;
   }
 
-  loginWith(providerName: string): firebase.Promise<any> {
+  loginWith(providerName: string): Promise<any> {
     let provider: firebase.auth.AuthProvider = null;
 
     switch (providerName) {
