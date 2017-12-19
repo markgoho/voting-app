@@ -11,11 +11,11 @@ export class AuthService {
     afAuth.idToken.subscribe(user => (this.user = user));
   }
 
-  get user(): firebase.User {
+  get user(): any {
     return this._user;
   }
 
-  set user(value: firebase.User) {
+  set user(value: any) {
     this._user = value;
   }
 
@@ -31,24 +31,7 @@ export class AuthService {
     const response = await this.afAuth.auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
     );
-    return this.db.object(`/users/${response.user.uid}`).subscribe(user => {
-      if (!user.$exists()) {
-        const {
-          displayName,
-          email,
-          emailVerified,
-          photoURL,
-          uid
-        } = response.user;
-        this.db.object(`/users/${response.user.uid}`).set({
-          displayName,
-          email,
-          emailVerified,
-          photoURL,
-          uid
-        });
-      }
-    });
+    console.log(response);
   }
 
   signOut(): Promise<any> {

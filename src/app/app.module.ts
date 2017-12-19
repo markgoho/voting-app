@@ -15,6 +15,7 @@ import { QuestionComponent } from './question/question.component';
 import { EditQuestionComponent } from './edit-question/edit-question.component';
 import { NewQuestionComponent } from './new-question/new-question.component';
 import { NavComponent } from './nav/nav.component';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { NavComponent } from './nav/nav.component';
     QuestionComponent,
     EditQuestionComponent,
     NewQuestionComponent,
-    NavComponent
+    NavComponent,
+    AuthComponent
   ],
   bootstrap: [AppComponent]
 })
