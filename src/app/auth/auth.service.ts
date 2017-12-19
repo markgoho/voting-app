@@ -1,21 +1,33 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+
+// angularfire2
+import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
+
+// rxjs
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
   private _user: firebase.User;
 
-  constructor(public afAuth: AngularFireAuth, private db: AngularFireDatabase) {
-    afAuth.idToken.subscribe(user => (this.user = user));
+  constructor(
+    public afAuth: AngularFireAuth,
+    private db: AngularFirestore,
+    private router: Router
+  ) {
+    afAuth.authState.subscribe(user => {
+      this.user = user;
+    });
   }
 
-  get user(): any {
+  get user(): firebase.User {
     return this._user;
   }
 
-  set user(value: any) {
+  set user(value: firebase.User) {
     this._user = value;
   }
 
@@ -23,7 +35,7 @@ export class AuthService {
     return this._user !== null;
   }
 
-  get id(): string {
+  get uid(): string {
     return this.authenticated ? this.user.uid : '';
   }
 
@@ -31,7 +43,8 @@ export class AuthService {
     const response = await this.afAuth.auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
     );
-    console.log(response);
+
+    this.router.navigate(['/questions']);
   }
 
   signOut(): Promise<any> {
