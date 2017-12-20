@@ -17,6 +17,7 @@ import { NewQuestionComponent } from './new-question/new-question.component';
 import { NavComponent } from './nav/nav.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth.guard';
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { AuthService } from './auth/auth.service';
     NavComponent,
     AuthComponent
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

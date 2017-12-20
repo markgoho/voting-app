@@ -14,17 +14,19 @@ import { Observable } from 'rxjs/Observable';
 })
 export class QuestionsComponent implements OnInit {
   questionsCollection: AngularFirestoreCollection<Question>;
-  questions: Observable<Question[]>;
+  questions$: Observable<Question[]>;
 
   constructor(private afs: AngularFirestore) {
     this.questionsCollection = afs.collection<Question>('questions');
-    this.questions = this.questionsCollection.snapshotChanges().map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data() as Question;
-        const id = a.payload.doc.id;
-        return { id, ...data };
+    this.questions$ = this.questionsCollection
+      .snapshotChanges()
+      .map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Question;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
       });
-    });
   }
 
   ngOnInit() {}

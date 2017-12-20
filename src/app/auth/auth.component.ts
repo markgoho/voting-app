@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 
 @Component({
   template: `
-    <div *ngIf="authService.afAuth.authState | async; let user; else showLogin">
+    <div *ngIf="authService.user$ | async; let user; else showLogin">
       <h1>Hello {{ user.displayName }}!</h1>
       <button (click)="logout()">Logout</button>
     </div>
