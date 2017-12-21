@@ -1,39 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import {
   AngularFirestore,
-  AngularFirestoreCollection
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
 } from 'angularfire2/firestore';
 
 import { Question } from '../question.model';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-new-question',
   templateUrl: './new-question.component.html',
   styleUrls: ['./new-question.component.scss']
 })
-export class NewQuestionComponent implements OnInit {
+export class NewQuestionComponent {
   newQuestion: string;
   emptyQuestion: boolean;
   questionsCollection: AngularFirestoreCollection<Question>;
+  questionRef: AngularFirestoreDocument<Question>;
 
-  constructor(private afs: AngularFirestore) {
-    this.questionsCollection = afs.collection<Question>('questions');
-  }
+  constructor(private db: AngularFirestore, private authService: AuthService) {}
 
-  ngOnInit() {}
-
-  async onCreate() {
+  onCreate() {
     if (this.newQuestion) {
       const title = this.newQuestion.trim();
-      await this.questionsCollection.add({
-        title: this.newQuestion,
-        votes: 0
+      this.authService.user$.subscribe(user => {
+        const path = `users/${user.uid}/questions`;
+        console.log(path, this.newQuestion);
+        this.db.collection<Question>(`users/${user.uid}/questions`).add({
+          title: this.newQuestion,
+          votes: 0
+        });
+        this.emptyQuestion = false;
       });
-      this.emptyQuestion = false;
     } else {
       this.emptyQuestion = true;
     }
-
     this.newQuestion = '';
   }
 }
