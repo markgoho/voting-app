@@ -11,9 +11,10 @@ import * as firebase from 'firebase/app';
 
 // rxjs
 import { Observable } from 'rxjs/Observable';
-import { User } from './user.model';
 import { switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
+
+import { User } from './user.model';
 
 @Injectable()
 export class AuthService {
@@ -26,7 +27,7 @@ export class AuthService {
   ) {
     this.user$ = afAuth.authState.pipe(
       switchMap(
-        (user: any) =>
+        (user: firebase.User) =>
           user
             ? this.db.doc<User>(`users/${user.uid}`).valueChanges()
             : of(null)
@@ -38,9 +39,7 @@ export class AuthService {
     const response = await this.afAuth.auth.signInWithPopup(
       new firebase.auth.GoogleAuthProvider()
     );
-
     await this.updateUserData(response.user);
-
     this.router.navigate(['/questions']);
   }
 
@@ -61,6 +60,6 @@ export class AuthService {
 
   async signOut(): Promise<any> {
     await this.afAuth.auth.signOut();
-    this.router.navigate(['/']);
+    this.router.navigate(['/auth']);
   }
 }
